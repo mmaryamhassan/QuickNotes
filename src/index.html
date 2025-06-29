@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="./output.css" rel="stylesheet" />
+    <title>QuickNotes</title>
+    <link rel="icon" href="/imgs/icon.jpg" type="image/x-icon" />
+</head>
+
+<body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100">
+<!-- Sidebar Nav -->
+<!-- Mobile Toggle Button (visible only on mobile) -->
+    <button id="hamburger" class="sm:hidden fixed top-4 left-4 z-50 p-2 bg-green-800 text-white rounded-md shadow-lg">
+        <!-- Hamburger Icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+    </button>
+    
+
+
+<!-- Sidebar (hidden on mobile by default) -->
+    <nav id="sidebar" class="fixed left-0 top-0 h-full w-56 bg-gradient-to-b from-green-600
+    to-emerald-800 p-4 shadow-xl transform -translate-x-full sm:translate-x-0 transition-transform duration-300 
+    z-40 dark:bg-gray-800">
+        <div class="flex items-center justify-between mt-3 mb-8">
+        <a href="#" class="text-2xl mt-10 font-bold text-white">QuickNotes</a>
+        <button id="closeSidebar" class="sm:hidden text-white hover:bg-white/20 p-1 rounded-full">
+            <!-- X Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+        </button>
+        </div>
+    <ul class="space-y-3">
+        <li>
+        <a href="#recentNotesList" class="flex items-center px-4 py-3 text-white rounded-lg hover:bg-white/10 group">
+            <svg class="h-5 w-5 mr-3 group-hover:scale-110" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+            </svg>
+            <span class="font-medium">Recent Notes</span>
+        </a>
+        </li>
+        <li>
+        <a href="#saveNotes" class="flex items-center px-4 py-3 text-white rounded-lg hover:bg-white/10 group">
+            <svg class="h-5 w-5 mr-3 group-hover:scale-110" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z" />
+            </svg>
+            <span class="font-medium">Saved Notes</span>
+        </a>
+        </li>
+        <li>
+        <a href="#genpdf" class="flex items-center px-4 py-3 text-white rounded-lg hover:bg-white/10 group">
+            <svg class="h-5 w-5 mr-3 group-hover:scale-110" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2H4a1 1 0 110-2V4zm3 1h2v2H7V5zm0 4h2v2H7V9zm0 4h2v2H7v-2z" clip-rule="evenodd" />
+            </svg>
+            <span class="font-medium">PDF's</span>
+        </a>
+        </li>
+    </ul>
+    </nav>
+
+<!-- Main Content -->
+    <main class="sm:ml-56 p-4">
+    <h2 class="text-center mt-4 text-2xl sm:text-3xl text-green-900 font-bold">QuickNotes</h2>
+
+    <div class="flex flex-col lg:flex-row gap-6 lg:gap-[6rem] mt-8 dark:bg-gray-700">
+        <!-- Notes Section -->
+        <div class="w-full lg:w-[40rem] bg-[#afe898] p-4 rounded-lg shadow-lg flex flex-col">
+        <label for="title" class="text-xl font-semibold text-green-900">Title</label>
+        <input type="text" id="title" name="title" class="w-full p-2 mb-4 text-lg bg-white border border-gray-300 rounded-lg shadow focus:outline-none">
+        <textarea name="note" id="notes" placeholder="Write your notes here.." class="w-full h-64 p-4 mb-4 text-lg bg-white border border-gray-300 rounded-lg shadow resize-none focus:outline-none"></textarea>
+        <div class="flex flex-wrap gap-4 justify-start">
+            <button id="saveNotes" onclick="saveNotes()" class="px-4 py-2 bg-green-900 text-white font-semibold rounded-lg shadow hover:bg-green-700">Save Notes</button>
+            <button id="clearNotes" onclick="clearNotes()" class="px-4 py-2 bg-green-900 text-white font-semibold rounded-lg shadow hover:bg-green-700">Clear</button>
+            <button id="genpdf" onclick="genPDF()" class="ml-auto px-4 py-2 bg-green-900 text-white font-semibold rounded-lg shadow hover:bg-green-700">Generate PDF</button>
+        </div>
+        </div>
+
+        <!-- Sidebar Utilities -->
+        <div class="flex flex-col gap-6 w-full lg:w-[20rem] dark:bg-gray-700">
+        <!-- Subjects -->
+        <div class="bg-[#afe898] p-4 rounded-lg shadow-lg">
+            <h2 class="text-xl font-semibold text-green-900">Subject</h2>
+            <select id="subjects" name="subjects" class="w-full mt-2 p-2 border border-gray-300 bg-white rounded-lg shadow focus:outline-none">
+            <option value="Biology">Biology</option>
+            <option value="Physics">Physics</option>
+            <option value="Chemistry">Chemistry</option>
+            <option value="Mathematics">Mathematics</option>
+            <option value="Computer Science">Computer Science</option>
+            </select>
+        </div>
+
+        <!-- Image Upload -->
+        <div class="bg-[#afe898] p-4 rounded-lg shadow-lg dark:bg-gray-700">
+            <h2 class="text-xl font-semibold text-green-900">Add Image</h2>
+            <input type="file" id="imageInput" accept="image/*" class="w-full mt-2 p-2 bg-white border border-gray-300 rounded-lg shadow focus:outline-none" onchange="previewImage(event)">
+            <img id="imagePreview" src="" alt="Image Preview" class="mt-3 w-full h-32 object-cover rounded-lg hidden">
+            <button id="delImage" onclick="deleteImg()" class="mt-4 px-4 py-2 bg-green-900 text-white font-semibold rounded-lg shadow hover:bg-green-700">Delete Image</button>
+        </div>
+
+        <!-- Recent Notes -->
+        <div class="bg-[#afe898] p-4 rounded-lg shadow-lg max-h-60 overflow-y-auto dark:bg-gray-700">
+            <h2 class="text-xl font-semibold text-green-900">Recent Notes</h2>
+            <ul id="recentNotesList" class="mt-3 space-y-2">
+            <!-- Dynamic list -->
+            </ul>
+        </div>
+        </div>
+    </div>
+    </main>
+
+<!-- Footer -->
+    <footer class="mt-12 p-4 dark:bg-gray-700 w-full bg-gradient-to-r from-green-800 to-green-700 text-white text-sm text-center">
+        <p>© 2025 QuickNotes. All rights reserved.</p>
+        <p>Developed by Maryiam Hassan</p>
+    </footer>
+
+<!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
