@@ -7,7 +7,6 @@ QuickNotes is a beautifully designed personal note-taking app built with Tailwin
 > ✨ Built with simplicity and speed in mind — perfect for students, writers, or anyone needing quick and organized note management.
 
 📸 Preview
-https://deeendaily.netlify.app
 
 ![Screenshot 2025-06-30 000543](https://github.com/user-attachments/assets/c8f909f4-317d-4fd7-a93d-0789c49b9b48)
 ---
